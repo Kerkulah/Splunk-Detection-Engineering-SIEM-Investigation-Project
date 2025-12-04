@@ -1,16 +1,28 @@
-<h1> SIEM-Deployment-Security-Monitoring-Elastic
+<h1> Splunk Detection Engineering & SIEM Investigation Project
 </h1>
 
 
 
 <h2>Description</h2>
-This homelab focuses on setting up and configuring Kali and Windows virtual machine as part of the lab infrastructure. Configured Elastic Agents to enable log collection and data forwarding for comprehensive security monitoring failed logon attempts, successful RDP logon related to service accounts, and users add or removed from a local group within a specific timeframe. 
+Hands on detection engineering project focused on understanding Splunk from the ground up, including its architecture, data ingestion pipeline, and field extraction process. Used real world datasets to investigate security incidents, analyze adversary behaviors, and operationalize Splunk as a SIEM for threat detection and response. Developed high fidelity SPL detections both TTP driven and analytics driven to surface anomalies, abnormal patterns, and attacker techniques aligned with MITRE ATT&CK. Gained practical experience navigating fields, validating log sources, tuning queries, and creating precise, actionable detections. 
+
+<h2> Quick walk through::</h2>
 <br />
-<h2> Utilities Used</h2>
-Oracle VirtualBox      Link https://www.virtualbox.org/wiki/Downloads
-Kali Linux             Link https://www.kali.org/get-kali/#kali-installer-images
-Windows                Link https://www.microsoft.com/en-ca/software-download/windows10iso
-<h2> Quick walk-through:</h2>
+Splunk architecture & core components
+<br />
+SPL (Search Processing Language) detection creation
+<br />
+Incident investigation using real-world data
+<br />
+TTP driven and anomaly-based detection engineering
+<br />
+Analyzing ingested fields/log structures
+<br />
+
+
+
+
+
 
 <p align="center">
 VM SetUP <br/>
