@@ -12,9 +12,9 @@ Splunk architecture & core components
 <br />
 SPL (Search Processing Language) detection creation
 <br />
-Incident investigation using real-world data
+Incident investigation using real world data
 <br />
-TTP driven and anomaly-based detection engineering
+TTP driven and anomaly based detection engineering
 <br />
 Analyzing ingested fields/log structures
 <br />
@@ -47,7 +47,7 @@ Visit https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon to underst
 <br />
 <img src="https://imgur.com/ICHFWym.jpg"  height="80%" width="80%">
 <br />
- Here’s a polished version for your GitHub:
+<br />
 
 Using these EventCodes, we can begin performing initial queries. Since unusual parent child process relationships often indicate suspicious activity, we’ll examine all parent child process trees with the following query. (index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 | stats count by ParentImage, Image)  <br/>
 <img src="https://imgur.com/IQivV8s.jpg"  height="80%" width="80%">
@@ -55,45 +55,43 @@ Using these EventCodes, we can begin performing initial queries. Since unusual p
 <br />
   
 <br />
-The query returns 5,427 events far too many to review manually. At this stage, we can either filter out benign activity or focus on child processes commonly associated with suspicious behavior, such as cmd.exe and powershell.exe. We'll start by targeting those two by using the following query (index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 (Image="*cmd.exe" OR Image="*powershell.exe") | stats count by ParentImage, Image) 
+The query returns 5,427 events far too many to review manually. At this stage, we can either filter out benign activity or focus on child processes commonly associated with suspicious behavior, such as cmd.exe and powershell.exe. We'll start by targeting those two by using the following query  index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 (Image="*cmd.exe" OR Image="*powershell.exe") | stats count by ParentImage, Image 
 <br/>
 <img src="https://imgur.com/v4B7pwZ.jpg"  height="80%" width="80%">
 <br />
-<br />
 
-<img src="https://imgur.com/Q1tC0Zg.jpg"  height="80%" width="80%">
-<br />
 
-<img src="https://imgur.com/jnwRWam.jpg"  height="80%" width="80%">
+The notepad.exe to powershell.exe process chain stands out immediately. This indicates that Notepad launched a child PowerShell process, which is highly unusual and often associated with suspicious or malicious activity. delve deeper by focusing solely on these events. index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 (Image="*cmd.exe" OR Image="*powershell.exe") ParentImage="C:\\Windows\\System32\\notepad.exe" 
 <br />
 <br />
-
-<img src="https://imgur.com/R0ZiSiw.jpg"  height="80%" width="80%">
+The ParentCommandLine shows Notepad running with no arguments, yet it spawns a PowerShell process whose CommandLine appears to download a file from the server at 10.0.0.229. This behavior is highly suspicious and indicative of potential malicious activity.
 <br />
+<img src="https://imgur.com/pnEGXOA.jpg"  height="80%" width="80%">
 <br />
-<br />
-Monitoring authentication anomalies: failed logons across all users and admin accounts, disabled user activity, service account RDP usage, and real time group membership changes  <br/>
-<img src="https://imgur.com/ixCzoN2.jpg"  height="80%" width="80%">
 
 <br />
 <br />
+After farther analysis, based on the data and the host parameter, we can conclude that this IP belongs to the host named waldo-virtual-machine on its ens160 interface. The IP seems to be doing some generic stuff. It’s becoming increasingly clear that the notepad.exe powershell.exe activity is not only malicious, but the Linux system involved also appears to be compromised. The host seems to be acting as a staging point for transmitting additional utilities, suggesting a broader infection.
+
+<img src="https://imgur.com/vZGePta.jpg"  height="80%" width="80%">
 <br />
-Successful RDP logon related to service accounts
-<img src="https://imgur.com/LXSyFxL.jpg"  height="80%" width="80%">
+<br />
+<img src="https://imgur.com/8h7nqsF.jpg"  height="80%" width="80%">
 <br />
 <br />
-Users add or removed from a local group within a specific timeframe (2023-03-05) 
-<img src="https://imgur.com/hSHLJWB.jpg"  height="80%" width="80%">
+
+<br />
+<br />
+<br />
+
+Two hosts were impacted by this Linux pivot. Notably, evidence shows that a DCSync PowerShell script was executed on the second host, strongly indicating a likely DCSync attack
+
+<br/>
+<img src="https://imgur.com/LxplMI7.jpg"  height="80%" width="80%">
+<br />
+<img src="https://imgur.com/ZTrmalI.jpg"  height="80%" width="80%">
 <br />
 <br />
 
 
-<img src="https://imgur.com/D5xWhfS.jpg"  height="80%" width="80%">
-<br />
-<br />
 
-<img src="https://imgur.com/VmP6tx2.jpg"  height="80%" width="80%">
-<br />
-<br />
-<br />
-<br />
