@@ -41,20 +41,23 @@ Exploring the Sysmon data begins with understanding the environment. Since we ar
 <br />
 
 <p align="center">
-Copy agent to Clipboard and deploy into Kali  <br/>
+Visit https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon to understand Sysmon event descriptions  <br/>
 
 <br />
 <br />
-<img src="https://imgur.com/xbPDnoi.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/ICHFWym.jpg"  height="80%" width="80%">
 <br />
- AFTER AGENT ENROLLMENT CONFORMED <br/>
-<img src="https://imgur.com/fg34aDu.jpg"  height="80%" width="80%">
+ Here’s a polished version for your GitHub:
+
+Using these EventCodes, we can begin performing initial queries. Since unusual parent child process relationships often indicate suspicious activity, we’ll examine all parent child process trees with the following query. (index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 | stats count by ParentImage, Image)  <br/>
+<img src="https://imgur.com/IQivV8s.jpg"  height="80%" width="80%">
 <br />
 <br />
   
 <br />
-Elastic dashboard showing top users/hosts for Windows Event 4625 authentication failures <br/>
-<img src="https://imgur.com/K7kftdh.jpg"  height="80%" width="80%">
+The query returns 5,427 events far too many to review manually. At this stage, we can either filter out benign activity or focus on child processes commonly associated with suspicious behavior, such as cmd.exe and powershell.exe. We'll start by targeting those two by using the following query (index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 (Image="*cmd.exe" OR Image="*powershell.exe") | stats count by ParentImage, Image) 
+<br/>
+<img src="https://imgur.com/v4B7pwZ.jpg"  height="80%" width="80%">
 <br />
 <br />
 
