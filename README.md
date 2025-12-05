@@ -25,16 +25,18 @@ Analyzing ingested fields/log structures
 
 
 <p align="center">
-VM SetUP <br/>
+Intrusion Detection With Splunk  <br/>
 
-Open VirtualBox and click New  → || Name the VM  and choose Type and ISO file → After VM Setup
-Start the VM
+Using self generated and dummy data, I retrieved all accessible events in Splunk by setting the time picker to All Time and running the query:
+index="main" earliest=0
+This query returns all events available within the specified index
+
 <br />
 <br />
-<img src="https://imgur.com/KfKxyeG.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/C3ckAo6.jpg"  height="80%" width="80%">
 <br />
-login to Elastic and setup defend intergration  <br/>
-<img src="https://imgur.com/eEtAYJk.jpg"  height="80%" width="80%">
+Exploring the Sysmon data begins with understanding the environment. Since we are approaching it as an unknown environment, the first step is to list all available sourcetypes using (index="main" | stats count by sourcetype) to identify what data sources are present. Query Sysmon sourcetype and take a look at the incoming data using (index="main" sourcetype="WinEventLog:Sysmon") <br/>
+<img src="https://imgur.com/SCHzOLY.jpg"  height="80%" width="80%">
 <br />
 <br />
 
