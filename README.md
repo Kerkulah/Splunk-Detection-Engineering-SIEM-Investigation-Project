@@ -1,5 +1,4 @@
-<h1> Splunk Detection Engineering & SIEM Investigation Project
-</h1>
+<h1> Splunk Detection Engineering & SIEM Investigation Project</h1>
 
 
 
