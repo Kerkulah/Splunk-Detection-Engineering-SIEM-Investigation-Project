@@ -65,7 +65,7 @@ The notepad.exe to powershell.exe process chain stands out immediately. This ind
 <br />
 The ParentCommandLine shows Notepad running with no arguments, yet it spawns a PowerShell process whose CommandLine appears to download a file from the server at 10.0.0.229. This behavior is highly suspicious and indicative of potential malicious activity.
 <br />
-<img src="https://imgur.com/pnEGXOA.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/6Jo5rM8.jpg"  height="80%" width="80%">
 <br />
 
 <br />
