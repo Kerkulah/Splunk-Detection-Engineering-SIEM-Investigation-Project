@@ -32,10 +32,10 @@ This query returns all events available within the specified index
 
 <br />
 <br />
-<img src="https://imgur.com/C3ckAo6.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/prpIvlg.jpg"  height="80%" width="80%">
 <br />
 Exploring the Sysmon data begins with understanding the environment. Since we are approaching it as an unknown environment, the first step is to list all available sourcetypes using (index="main" | stats count by sourcetype) to identify what data sources are present. Query Sysmon sourcetype and take a look at the incoming data using (index="main" sourcetype="WinEventLog:Sysmon") <br/>
-<img src="https://imgur.com/SCHzOLY.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/RVTGMiG.jpg"  height="80%" width="80%">
 <br />
 <br />
 
@@ -44,19 +44,19 @@ Visit https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon to underst
 
 <br />
 <br />
-<img src="https://imgur.com/ICHFWym.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/OWEfXXZ.jpg"  height="80%" width="80%">
 <br />
 <br />
 
 Using these EventCodes, we can begin performing initial queries. Since unusual parent child process relationships often indicate suspicious activity, we’ll examine all parent child process trees with the following query. (index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 | stats count by ParentImage, Image)  <br/>
-<img src="https://imgur.com/IQivV8s.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/V07fC9L.jpg"  height="80%" width="80%">
 <br />
 <br />
   
 <br />
 The query returns 5,427 events far too many to review manually. At this stage, we can either filter out benign activity or focus on child processes commonly associated with suspicious behavior, such as cmd.exe and powershell.exe. We'll start by targeting those two by using the following query  index="main" sourcetype="WinEventLog:Sysmon" EventCode=1 (Image="*cmd.exe" OR Image="*powershell.exe") | stats count by ParentImage, Image 
 <br/>
-<img src="https://imgur.com/v4B7pwZ.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/yJlCwfn.jpg"  height="80%" width="80%">
 <br />
 
 
@@ -72,10 +72,10 @@ The ParentCommandLine shows Notepad running with no arguments, yet it spawns a P
 <br />
 After farther analysis, based on the data and the host parameter, we can conclude that this IP belongs to the host named waldo-virtual-machine on its ens160 interface. The IP seems to be doing some generic stuff. It’s becoming increasingly clear that the notepad.exe powershell.exe activity is not only malicious, but the Linux system involved also appears to be compromised. The host seems to be acting as a staging point for transmitting additional utilities, suggesting a broader infection.
 
-<img src="https://imgur.com/vZGePta.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/bXX1Uxk.jpg"  height="80%" width="80%">
 <br />
 <br />
-<img src="https://imgur.com/8h7nqsF.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/54emRht.jpg"  height="80%" width="80%">
 <br />
 <br />
 
@@ -86,9 +86,9 @@ After farther analysis, based on the data and the host parameter, we can conclud
 Two hosts were impacted by this Linux pivot. Notably, evidence shows that a DCSync PowerShell script was executed on the second host, strongly indicating a likely DCSync attack
 
 <br/>
-<img src="https://imgur.com/LxplMI7.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/dAw3np9.jpg"  height="80%" width="80%">
 <br />
-<img src="https://imgur.com/ZTrmalI.jpg"  height="80%" width="80%">
+<img src="https://imgur.com/7iyeNkK.jpg"  height="80%" width="80%">
 <br />
 <br />
 
