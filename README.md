@@ -70,7 +70,7 @@ The ParentCommandLine shows Notepad running with no arguments, yet it spawns a P
 
 <br />
 <br />
-After farther analysis, based on the data and the host parameter, we can conclude that this IP belongs to the host named waldo-virtual-machine on its ens160 interface. The IP seems to be doing some generic stuff. It’s becoming increasingly clear that the notepad.exe powershell.exe activity is not only malicious, but the Linux system involved also appears to be compromised. The host seems to be acting as a staging point for transmitting additional utilities, suggesting a broader infection.
+After farther analysis, based on the data and the host parameter, we can conclude that this IP belongs to the host named waldo virtual machine on its ens160 interface. The IP seems to be doing some generic stuff. It’s becoming increasingly clear that the notepad.exe powershell.exe activity is not only malicious, but the Linux system involved also appears to be compromised. The host seems to be acting as a staging point for transmitting additional utilities, suggesting a broader infection.
 
 <img src="https://imgur.com/bXX1Uxk.jpg"  height="80%" width="80%">
 <br />
